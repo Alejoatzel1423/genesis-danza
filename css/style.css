@@ -1,0 +1,364 @@
+/* ===== Estilos base CeroDeuda + Plugins ===== */
+:root {
+  --purple: #6600FF;
+  --cyan: #00E5FF;
+  --dark: #0A0A0F;
+  --dark2: #12121A;
+  --glass: rgba(10,10,15,0.85);
+  --radius: 16px;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+html.lenis { scroll-behavior: auto; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: var(--dark);
+  color: #fff;
+  overflow-x: hidden;
+}
+
+/* ===== Three.js Canvas BG ===== */
+#three-canvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ===== Hero ===== */
+.hero {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+}
+
+.hero h1 {
+  font-family: 'Neuropolitical', sans-serif;
+  font-size: clamp(2.5rem, 8vw, 6rem);
+  line-height: 1.1;
+  background: linear-gradient(135deg, #fff 0%, var(--cyan) 40%, var(--purple) 80%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1rem;
+  filter: drop-shadow(0 0 40px rgba(102,0,255,0.3));
+}
+
+.hero p {
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
+  color: rgba(255,255,255,0.7);
+  max-width: 600px;
+  margin-bottom: 2rem;
+}
+
+/* ===== Hero Buttons with Glow ===== */
+.glow-btn {
+  display: inline-block;
+  padding: 16px 48px;
+  border: none;
+  border-radius: 50px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.glow-btn--primary {
+  background: linear-gradient(135deg, var(--purple), #8833ff);
+  color: #fff;
+  box-shadow: 0 0 30px rgba(102,0,255,0.4), inset 0 0 20px rgba(0,229,255,0.1);
+}
+
+.glow-btn--primary:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 0 50px rgba(102,0,255,0.6), inset 0 0 30px rgba(0,229,255,0.2);
+}
+
+.glow-btn--secondary {
+  background: transparent;
+  color: var(--cyan);
+  border: 2px solid var(--cyan);
+  box-shadow: 0 0 20px rgba(0,229,255,0.2);
+}
+
+.glow-btn--secondary:hover {
+  background: rgba(0,229,255,0.1);
+  box-shadow: 0 0 40px rgba(0,229,255,0.4);
+  transform: translateY(-3px);
+}
+
+/* ===== Scroll indicator ===== */
+.scroll-indicator {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255,255,255,0.3);
+  font-size: 0.8rem;
+  animation: bounce 2s infinite;
+}
+
+.scroll-indicator .mouse {
+  width: 24px; height: 38px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-radius: 12px;
+  position: relative;
+}
+
+.scroll-indicator .mouse::after {
+  content: '';
+  position: absolute;
+  top: 8px; left: 50%;
+  transform: translateX(-50%);
+  width: 4px; height: 8px;
+  background: var(--cyan);
+  border-radius: 2px;
+  animation: scrollWheel 1.5s infinite;
+}
+
+@keyframes scrollWheel {
+  0% { opacity:1; transform: translateX(-50%) translateY(0); }
+  100% { opacity:0; transform: translateX(-50%) translateY(12px); }
+}
+
+@keyframes bounce {
+  0%,100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(8px); }
+}
+
+/* ===== Sections ===== */
+.section {
+  position: relative;
+  z-index: 1;
+  padding: 100px 5%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section h2 {
+  font-family: 'Neuropolitical', sans-serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  margin-bottom: 2rem;
+  text-align: center;
+  background: linear-gradient(135deg, var(--cyan), var(--purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ===== Splide Carousel ===== */
+.splide { margin: 40px 0; }
+.splide__slide {
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(102,0,255,0.2);
+  border-radius: var(--radius);
+  padding: 40px 30px;
+  text-align: center;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.splide__slide h3 {
+  font-family: 'Neuropolitical', sans-serif;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, var(--cyan), #fff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.splide__arrow { background: var(--purple) !important; opacity:0.8 !important; }
+.splide__arrow svg { fill: #fff !important; }
+.splide__pagination__page.is-active { background: var(--cyan) !important; }
+
+/* ===== Stats Counter ===== */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  margin: 4rem 0;
+}
+
+.stat-card {
+  text-align: center;
+  padding: 2rem;
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(102,0,255,0.15);
+  border-radius: var(--radius);
+  transition: all 0.3s;
+}
+
+.stat-card:hover {
+  border-color: var(--purple);
+  transform: translateY(-5px);
+  box-shadow: 0 20px 60px rgba(102,0,255,0.2);
+}
+
+.stat-number {
+  font-family: 'Neuropolitical', sans-serif;
+  font-size: 3rem;
+  background: linear-gradient(135deg, var(--cyan), var(--purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.stat-label {
+  color: rgba(255,255,255,0.6);
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+}
+
+/* ===== 3D Cards Grid ===== */
+.card-3d-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin: 4rem 0;
+}
+
+.card-3d {
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(102,0,255,0.2);
+  border-radius: var(--radius);
+  padding: 2rem;
+  text-align: center;
+  transition: all 0.3s;
+  cursor: default;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-3d::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: conic-gradient(transparent, var(--purple), transparent 30%);
+  animation: rotateGlow 6s linear infinite;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.card-3d:hover::before {
+  opacity: 0.15;
+}
+
+@keyframes rotateGlow {
+  to { transform: rotate(360deg); }
+}
+
+.card-3d h3 {
+  font-family: 'Neuropolitical', sans-serif;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.card-3d p {
+  color: rgba(255,255,255,0.6);
+  font-size: 0.9rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== Progress Bars ===== */
+.progress-container {
+  margin: 2rem 0;
+}
+
+.progress-item {
+  margin-bottom: 1.5rem;
+}
+
+.progress-item .label {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--purple), var(--cyan));
+  width: 0%;
+  transition: width 1.5s ease-out;
+}
+
+/* ===== Footer ===== */
+footer {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 3rem;
+  color: rgba(255,255,255,0.3);
+  font-size: 0.9rem;
+  border-top: 1px solid rgba(102,0,255,0.1);
+}
+
+footer a { color: var(--cyan); text-decoration: none; }
+
+/* ===== Confetti button ===== */
+.confetti-btn {
+  position: fixed;
+  bottom: 100px;
+  right: 30px;
+  z-index: 100;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--purple), var(--cyan));
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  box-shadow: 0 0 30px rgba(102,0,255,0.4);
+  transition: all 0.3s;
+}
+
+.confetti-btn:hover {
+  transform: scale(1.1) rotate(15deg);
+  box-shadow: 0 0 50px rgba(102,0,255,0.6);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .hero { padding: 1rem; }
+  .section { padding: 60px 5%; }
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+  .btn-group { flex-direction: column; align-items: center; }
+}
